@@ -1,0 +1,8 @@
+SELECT 
+    CASE 
+        WHEN E.unique_id IS NOT NULL THEN E.unique_id
+        ELSE NULL 
+    END AS unique_id,
+    Es.name 
+FROM Employees Es
+LEFT JOIN EmployeeUNI E ON Es.id = E.id
