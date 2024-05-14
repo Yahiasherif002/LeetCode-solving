@@ -1,0 +1,3 @@
+/* Write your T-SQL query statement below */
+SELECT tweet_id From Tweets
+WHERE LEN(content) > 15 
