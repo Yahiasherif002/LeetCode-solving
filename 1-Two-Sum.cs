@@ -1,13 +1,13 @@
 public class Solution {
     public int[] TwoSum(int[] nums, int target) {
-        Dictionary<int,int> numMap = new Dictionary<int,int>();
-        for(int i=0;i<nums.Length;i++){
-            int diff= target-nums[i]; // 9-2=7
-            if(numMap.ContainsKey(diff)){
-                return new int[] {numMap[diff],i};
-            }
-            numMap[nums[i]]=i;
+       Dictionary<int,int> numtoIndex= new Dictionary<int,int>();
+       for(int i=0;i<nums.Length;i++){
+        int complement= target-nums[i];
+        if(numtoIndex.ContainsKey(complement)){
+            return new int[]{numtoIndex[complement],i};
         }
-        return null;
-}
+        numtoIndex[nums[i]]=i; // If the complement does not exist, add the current number and its index to the dictionary
+       }
+       return null;
+    }
 }
