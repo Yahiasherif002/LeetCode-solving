@@ -1,0 +1,16 @@
+DECLARE @EndDate DATE = '2019-07-27';
+DECLARE @StartDate DATE = DATEADD(DAY, -29, @EndDate);
+
+SELECT
+    activity_date AS day,
+    COUNT(DISTINCT user_id) AS active_users
+FROM
+    Activity
+WHERE
+    activity_date BETWEEN @StartDate AND @EndDate
+GROUP BY
+    activity_date
+HAVING
+    COUNT(user_id) >= 1
+ORDER BY
+    activity_date;
