@@ -2,6 +2,7 @@ public class Solution
 {
     public int[] TopKFrequent(int[] nums, int k)
     {
+        int[] res = new int [k];
         var dict=new Dictionary<int, int>();
         foreach(int num in nums)
         {
@@ -16,26 +17,17 @@ public class Solution
             }
         }
 
-        List<int>[] bucket= new List<int>[nums.Length+1];
-        foreach(int key in dict.Keys)
-        {
-            int freq = dict[key];
-            if (bucket[freq]== null)
-            {
-                bucket[freq] = new List<int>();
-            }
-            bucket[freq].Add(key);
+       var heap= new PriorityQueue<int,int>();
+       foreach(var key in dict.Keys){
+        heap.Enqueue(key,dict[key]);
+        if(heap.Count>k) heap.Dequeue();
+       }
 
-        }
-
-        List<int> res = new List<int>();
-        for (int i = bucket.Length-1; i >=0 && res.Count<k; i--)
-        {
-            if (bucket[i] != null)
-                res.AddRange(bucket[i]);
-
-        }
-        return res.ToArray();
+       int pos=k;
+       while(heap.Count>0){
+        res[--pos]=heap.Dequeue();
+       }
+       return res;
 
     }
 }
