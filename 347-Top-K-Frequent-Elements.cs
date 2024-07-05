@@ -2,32 +2,24 @@ public class Solution
 {
     public int[] TopKFrequent(int[] nums, int k)
     {
-        int[] res = new int [k];
-        var dict=new Dictionary<int, int>();
-        foreach(int num in nums)
-        {
-            if (dict.ContainsKey(num))
-            {
-                dict[num]++;
+       var dict = new Dictionary<int,int>();
 
-            }
-            else
-            {
-                dict.Add(num, 1);
-            }
-        }
+       foreach(var num in nums){
+        if(dict.ContainsKey(num)) dict[num]++;
+        else dict[num]=1;
+       }
 
-       var heap= new PriorityQueue<int,int>();
+       var bucket = new List<int>[nums.Length+1];
        foreach(var key in dict.Keys){
-        heap.Enqueue(key,dict[key]);
-        if(heap.Count>k) heap.Dequeue();
+        int freq= dict[key];
+        if(bucket[freq] == null) bucket[freq]=new List<int>();
+         bucket[freq].Add(key);
        }
 
-       int pos=k;
-       while(heap.Count>0){
-        res[--pos]=heap.Dequeue();
+       var result = new List<int>();
+       for(int i = bucket.Length-1;i>=0 && result.Count<k ; i--){
+        if (bucket[i] != null) result.AddRange(bucket[i]);
        }
-       return res;
-
+        return result.Take(k).ToArray();
     }
 }
