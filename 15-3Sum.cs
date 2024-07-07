@@ -1,39 +1,41 @@
 public class Solution {
     public IList<IList<int>> ThreeSum(int[] nums) {
-        List<IList<int>> res = new List<IList<int>>();
-        int l, r;
+        List <IList<int>> result = new List <IList<int>>();
+
+
+
+        int Left;
+        int Right;
         Array.Sort(nums);
 
-        for(int i=0;i<nums.Length;i++){
-            if(i > 0 && nums[i] == nums[i-1]){
-                continue;
-            }
+        for(int i = 0; i<nums.Length;i++){
+            if(i>0 && nums[i]==nums[i-1]) continue;
+        
 
-            int c=nums[i];
-            
-            l=i+1;
-            r=nums.Length-1;
-            
+            int current = nums[i];
+            Left=i+1;
+             Right= nums.Length -1;
 
-            while(l<r){
-            int sum=nums[l]+nums[r];
-            int threeSum=c+sum;
-                if(threeSum>0){
-                    r--;
+            while(Left<Right){
+            int twoSum= nums[Left]+nums[Right];
+            int ThreeSum= current + twoSum;
+
+            if(ThreeSum>0) Right--;
+             else if(ThreeSum<0) Left++;
+             else{
+                result.Add(new List<int>(){current,nums[Left],nums[Right]});
+                Left++;
+                Right--;
+                while(nums[Left]==nums[Left-1] && Left<Right){
+                    Left++;
                 }
-                else if (threeSum<0){
-                    l++;
-                }
-                else{
-                    res.Add(new List<int>{nums[i],nums[l],nums[r]});
-                    l++;
-                    while(nums[l]==nums[l-1] && l<r){
-                        l++;
-                    }
-                }
+             }
+
 
             }
+
+        
         }
-        return res;
+        return result;
     }
 }
