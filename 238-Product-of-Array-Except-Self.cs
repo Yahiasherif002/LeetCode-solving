@@ -10,10 +10,12 @@ public class Solution
             result[i]=pre;
             pre*=nums[i];
         }
-        for(int i = nums.Length-1;i>=0;i--){
+         for(int i =nums.Length-1;i>=0;i--){
             result[i]*=post;
             post*=nums[i];
         }
+
+        
 
         return result;
     }
